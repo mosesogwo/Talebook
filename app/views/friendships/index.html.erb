@@ -1,13 +1,16 @@
-<div class='friend-container d-flex flex-column mt-5 mb-5 p-2'>
-<h5 class='text-center font-weight-bold mb-5 mt-5'>All friends</h5>
-<% @friends.each do |friend| %>
-  <div class='d-flex align-items-end justify-content-between mb-3 bg-light'>
-    <div>
-      <%= gravatar_for friend %> <%=link_to "#{friend.first_name} #{friend.surname}", user_path(friend) %>
-    </div>
-    <div>
-      <%= button_to 'Unfriend', user_friendship_path(current_user, friend), method: :delete %>
-    </div>
+<div class="container">
+  <h5 class='text-center font-weight-bold mb-5 mt-5'>All friends</h5>
+  <div class='friend-container d-flex flex-wrap mb-5 mt-5 p-auto pt-3 text-center'>
+    <% @friends.each do |friend| %>
+      <div class="card m-2 border-0" style="width: 18rem;">
+        <%= link_to user_path(friend), class: "card-img-top" do %>
+          <%= gravatar_for friend %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= friend.first_name %> <%=  friend.surname %></h5>
+          <%= link_to 'Unfriend', user_friendship_path(current_user, friend), class: "btn btn-danger", method: :delete %>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
 </div>

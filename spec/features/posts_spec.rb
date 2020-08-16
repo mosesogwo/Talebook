@@ -14,7 +14,7 @@ RSpec.feature 'Post Management' do
     visit posts_path
     sign_in_user('uac3@gmail.com')
     fill_in 'Tell your tale', with: 'a new post'
-    click_on 'Edit'
+    click_on '🖉'
     fill_in 'Edit your story', with: 'an updated post'
     click_on 'Post'
     expect(page).to have_content('Post successfully edited')
@@ -24,7 +24,7 @@ RSpec.feature 'Post Management' do
     visit posts_path
     sign_in_user('uac3@gmail.com')
     fill_in 'Tell your tale', with: 'a new post'
-    click_on 'Delete'
+    click_on '❌'
     expect(page).to have_content('Post deleted')
   end
 end

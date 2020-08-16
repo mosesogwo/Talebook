@@ -1,0 +1,17 @@
+<div class="card comment" style="">
+  <div class="row no-gutters">
+    <div class="col-md-2 text-center">
+      <%= link_to user_path(comment.user), class: "card-img" do %>
+        <%= gravatar_for comment.user %>
+        <p><%= comment.user.first_name %> <%= comment.user.surname %></p>
+      <% end %>
+    </div>
+    <div class="col-md-10 text-left">
+      <div class="card-body">
+        <p class="card-text"><%= comment.body %></p>
+        <p class="card-text"><small class="text-muted"><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+        <%= render partial: "shared/comment_mgt", locals: {comment: comment} %>
+      </div>
+    </div>
+  </div>
+</div>

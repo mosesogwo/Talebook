@@ -1,31 +1,39 @@
-<div class='request-container bg-light row d-flex justify-content-between mt-5'>
-  
+<div class='request-container w-75 row mt-5'>
   <div class="col-md-5 request-col">
-    <h5 class='text-center font-weight-bold mb-5 mt-5'> Respond to friend requests</h5>
-    <% @incoming.each do |request| %>
-    <div class='d-flex align-items-center justify-content-between mb-3 bg-light'>
-      <div>
-        <%= gravatar_for request.user %>  <%=link_to "#{request.user.first_name} #{request.user.surname}", user_path(request.user) %>
-      </div>
-      <div>
-        <%= button_to 'Accept request', friend_request_path(request), method: :patch %>
-      </div>
+    <h5 class='text-center font-weight-bold mb-5 mt-5'> Incoming friend requests</h5>
+    <div class="flex flex-wrap p-auto">
+      <% @incoming.each do |request| %>
+        <div class="card my-2 border-0" style="width: 18rem;">
+          <%= link_to user_path(request.user), class: "card-img-top" do %>
+            <%= gravatar_for request.user %>
+          <% end %>
+          <div class="card-body w-100 p-0 px-2">
+            <h5 class="card-title"><%= request.user.first_name %> <%=  request.user.surname %></h5>
+            <%= link_to 'Accept request', friend_request_path(request), class: "btn btn-danger", method: :patch %>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 
-<div class='col-md-5 col-md-offset-2 request-col'>
-  <h5 class='text-center font-weight-bold mb-5 mt-5'> Sent friend requests </h5>
-  <% @outgoing.each do |request| %>
-  <div class='d-flex align-items-end justify-content-between mb-3 bg-light'>
-    <div>
-      <%= gravatar_for request.friend %> <%=link_to "#{request.friend.first_name} #{request.friend.surname}", user_path(request.friend) %>
-    </div>
-    <div>
-      <%= button_to 'Cancel request', friend_request_path(request), method: :delete %>
-    </div>
-  </div>
-  <% end %>
+  <div class="col-md-2 bg-transparent">
+    
   </div>
 
+  <div class='col-md-5 request-col'>
+    <h5 class='text-center font-weight-bold mb-5 mt-5'> Sent friend requests </h5>
+    <div class="d-flex flex-wrap p-auto">
+      <% @outgoing.each do |request| %>
+        <div class="card my-2 border-0" style="width: 18rem;">
+          <%= link_to user_path(request.friend), class: "card-img-top" do %>
+            <%= gravatar_for request.friend %>
+          <% end %>
+          <div class="card-body p-0 px-2">
+            <h5 class="card-title"><%= request.friend.first_name %> <%=  request.friend.surname %></h5>
+            <%= link_to 'Cancel request', friend_request_path(request), class: "btn btn-danger", method: :delete %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

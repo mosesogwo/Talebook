@@ -5,8 +5,12 @@ body {
   font-size: 0.9rem;
 }
 
-.navbar {
-  background-color: #e3f2fd;
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #d2e3f0;
 }
 
 .field, .actions{
@@ -19,42 +23,20 @@ body {
   margin: 0 auto;
 }
 
-.request-col {
-  background-color: white;
-}
-
 .friend-container {
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
   background-color: white;
 }
 
 .form-container {
   width: 50%;
-  background-color: white;
   border-radius: 25px;
 }
 
-.post-index-container {
-  background-color: white;
-  width: 60%;
-  margin: 0 auto;
-  .post {
-    width: 100%;
-  }
-}
 
 .post-form input, .post-form #post_body {
   width: 100%;
-}
-
-.comment-form #comment_body {
-  width: 70%;
-}
-
-.gravatar {
-  height: 4em;
-  width: 4em;
 }
 
 .post-body {
@@ -80,4 +62,66 @@ small {
 
 .comment-edit-text {
   width: 100%;
+}
+
+// POST INDEX
+.post-index-container {
+  background-color: white;
+  width: 60%;
+  margin: 0 auto;
+  .post {
+    padding: 1.25rem;
+    border: none;
+    width: 100%;
+    .gravatar {
+      width: 80%;
+      height: auto;
+    }
+    .card-body {
+      padding: 0;
+      padding-left: 1rem;
+    }
+    .card-text {
+      margin-bottom: 2px;
+    }
+  }
+
+  .comment {
+    font-size: 0.8rem;
+    border: none;
+    width: 80%;
+    margin-left: auto;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    .gravatar {
+      width: 60%;
+      height: auto;
+    }
+    .card-body {
+      padding: 0;
+    }
+    .card-text {
+      margin-bottom: 0;
+    }
+  }
+
+  .comment-form{
+    width: 80%;
+    margin-left: auto;
+  }
+
+  #comment_body {
+    width: 70%;
+  }
+}
+
+// FRIENDS
+.request-col {
+  background-color: white;
+  .card {
+  flex-direction: row;
+  }
+  .card-img-top {
+    width: auto;
+  }
 }

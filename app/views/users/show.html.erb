@@ -1,73 +1,69 @@
 <div class='container'>
   <div class='row'>
-    <div class='col-md-3'>
-      <div><br><%= gravatar_for @user %></div><br>
-      Name: <%= @user.first_name %> <%= @user.surname %><br>
-      Email: <%= @user.email %><br>
-      Date of birth: <%= @user.date_of_birth %><br>
-      Gender: <%= @user.gender %><br>
+    <div class='col-md-3 mt-3 text-center font-weight-bold'>
+      <div class="card w-100 p-3">
+        <%= link_to user_path(@user), class: "card-img-top" do %>
+          <%= gravatar_for @user %>
+        <% end %>
+        <%# <img src="..." class="card-img-top" alt="..."> %>
+        <div class="card-body">
+          <h5 class="card-title"><%= @user.first_name %> <%= @user.surname %></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Email: <%= @user.email %></li>
+          <li class="list-group-item">Date of Birth: <%= @user.date_of_birth %></li>
+          <li class="list-group-item">Gender: <%= @user.gender %></li>
+        </ul>
+      </div>
     </div>
 
-    <div class='col-md-9 mt-3 container post-index-container p-3'>
-      <% if @user == current_user%>
-        <div class="mb-3 bg-light post-form p-2">
-        <%= form_for(@post) do |f| %>
-          <%= f.label :body, 'Tell your tale', class: "font-weight-bold" %>
-          <%= f.text_area :body, placeholder: "What's your story?" %>
-          <%= f.submit 'Submit' %>
-        <% end %><br>
-        </div>
-      <% end %>
+    <div class='col-md-9 mt-3'>
+      <div class='container post-index-container p-3 mb-5 w-100'>
 
-      <% if @posts.empty? %>
-        <h4 class='text-center font-weight-bold mb-3 mt-3' >You don't have any posts yet!</h4>
-      <% else  %>
-        <div class='mb-3'>
-          <% @posts.each do |post| %>
-            <div class='post mb-3 p-3 bg-light ml-auto'>
-              <small><%= link_to "#{post.user.first_name}", user_path(post.user) %></small><br>
-              <div class='post-body mb-1'><%= post.body %><br></div>
-              <div class='post-links mb-3'>
-                <% if current_user == post.user %>
-                  <small class="mr-2"><%= link_to 'Edit', edit_post_path(post) %></small>
-                  <small class="mr-2"><%= link_to 'Delete', post_path(post), method: :delete %></small>
-                <% end %>
-                <% if post.likes.exists?(user: current_user) %>
-                  <small class="mr-2 font-weight-bold"><%= link_to "Like(#{post.likes.count})", post_likes_path(post), method: :post %></small> 
-                <% else %>
-                  <small class="mr-2"><%= link_to "Like(#{post.likes.count})", post_likes_path(post), method: :post %></small>
-                <% end %>
-              </div>
-
-              <div id='comment_div' class='ml-3'>
-                <% post.comments.each do |comment| %>
-                  <div class='mb-2'>
-                    <%= link_to "#{comment.user.first_name}:", user_path(comment.user) %>
-                    <%= comment.body %>
-                    <div class='comment-links'>
-                      <% if current_user == comment.user %>
-                        <small class="mr-2"><%= link_to 'Edit', edit_comment_path(comment) %></small>
-                        <small class="mr-2"><%= link_to 'Delete', comment_path(comment), method: :delete %></small>
-                      <% end %>
-                      <% if comment.likes.exists?(user: current_user) %>
-                        <small class="mr-2 font-weight-bold"><%= link_to "Like(#{comment.likes.count})", comment_likes_path(comment), method: :post %></small>
-                      <% else %>
-                        <small class="mr-2"><%= link_to "Like(#{comment.likes.count})", comment_likes_path(comment), method: :post %></small>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end  %>
-              </div>
-              <div class='ml-3 comment-form'>
-                <%= form_for(@comment) do |f| %>
-                  <%= f.hidden_field :post_id, value: post.id  %>
-                  <%= f.text_field :body, placeholder: "Leave a comment" %>
-                  <%= f.submit 'Comment' %>
-                <% end  %>
-                </div>
-              </div>
+        <div class='mb-3 p-3 bg-light post-form'>
+          <%= form_for(@post)  do |f| %>
+            <%= f.label :body, 'Tell your tale', class: "font-weight-bold" %>
+            <%= f.text_area :body, placeholder: "What's your story?" %>
+            <%= f.submit 'Submit' %>
           <% end %>
         </div>
-      <% end %>
+
+        <% if @posts.empty? %>
+          <h4 class='text-center font-weight-bold mb-3 mt-3'>It's lonely in here!</h4>
+        <% else  %>
+          <% @posts.each do |post| %>
+            <div class="card post mb-3" style="">
+              <div class="row no-gutters">
+                <div class="col-md-2 text-center">
+                  <%= link_to user_path(post.user), class: "card-img" do %>
+                    <%= gravatar_for post.user %>
+                    <p><%= post.user.first_name %> <%= post.user.surname %></p>
+                  <% end %>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body">
+                    <p class="card-text"><%= post.body %></p>
+                    <p class="card-text"><small class="text-muted"><%= time_ago_in_words(post.created_at) %> ago</small></p>
+                    <%= render partial: "shared/post_mgt", locals: {post: post} %>
+                  </div>
+                </div>
+              </div>
+              <% post.comments.each do |comment| %>
+                <%= render partial: "shared/comment", locals: {comment: comment} %>
+              <% end %>
+              <div class='comment-form'>
+                <%= form_for(@comment) do |f| %>
+                  <%= f.hidden_field :post_id, value: post.id  %>
+                  <%= f.text_field :body, placeholder: "Leave a comment", class: "main-comment" %>
+                  <span><%= f.submit 'Comment' %></span>
+                <% end  %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+
     </div>
   </div>
+</div>

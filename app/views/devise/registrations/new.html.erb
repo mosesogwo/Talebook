@@ -5,45 +5,45 @@
       <%= form_for(resource, as: resource_name, class: "", url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
     
-        <div class="field bg-light">
-          <%= f.label :first_name, class: "label  p-2"%><br />
+        <div class="field font-weight-bold">
+          <%= f.label :first_name, class: "label"%><br />
           <%= f.text_field :first_name, autofocus: true, autocomplete: "first name", class: "form-control mb-3"%>
         </div>
 
-        <div class="field bg-light">
-          <%= f.label :surname, class: "label p-2"%><br />
+        <div class="field font-weight-bold">
+          <%= f.label :surname, class: "label"%><br />
           <%= f.text_field :surname, autofocus: true, autocomplete: "surname", class: "form-control mb-3"%>
         </div>
     
-        <div class="field bg-light">
-          <%= f.label :email, class: "label p-2"%><br />
+        <div class="field font-weight-bold">
+          <%= f.label :email, class: "label"%><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3"%>
         </div>
 
-        <div class="field bg-light">
-          <%= f.label :password, class: "label p-2"%>
+        <div class="field font-weight-bold">
+          <%= f.label :password, class: "label"%>
           <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "new-password", class: "form-control mb-3"%>
         </div>
 
-        <div class="field bg-light">
-          <%= f.label :password_confirmation, class: "label p-2"%><br />
+        <div class="field font-weight-bold">
+          <%= f.label :password_confirmation, class: "label"%><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-3"%>
         </div>
 
-        <div class="field bg-light">
-          <%= f.label :date_of_birth, class: "label p-2" %><br />
+        <div class="field font-weight-bold">
+          <%= f.label :date_of_birth, class: "label" %><br />
           <%= f.date_field :date_of_birth, autofocus: true, autocomplete: "date of birth", class: "form-control mb-3"%>
         </div>
 
-        <div class="field bg-light mb-3">
-          <%= f.label :gender, class: "label p-2" %><br />
+        <div class="field mb-3 font-weight-bold">
+          <%= f.label :gender, class: "label" %><br />
           <%= f.select :gender, options_for_select([["Male", "Male"], ["Female", "Female"]]), autofocus: true %>
         </div>
 
-        <div class="actions bg-light mb-3 text-center">
+        <div class="actions mb-3 text-center font-weight-bold">
           <%= f.submit "Sign up", class: "submit btn btn-primary" %>
         </div>
         <div class="text-center">

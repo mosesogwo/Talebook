@@ -1,0 +1,27 @@
+<div class='post-links mb-3'>
+  <% if current_user == post.user %>
+    <small class='mr-2'>
+      <%= link_to edit_post_path(post) do %>
+        &#128393;
+      <% end %>
+    </small>
+    <small class='mr-2'>
+      <%= link_to post_path(post), method: :delete do %>
+        &#10060;
+      <% end %>
+    </small>
+  <% end %>
+  <% if post.likes.exists?(user: current_user) %>
+    <small class='mr-2 font-weight-bold'>
+      <%= link_to post_likes_path(post), method: :post do %>
+        <span>&#128151;<%= post.likes.count %></span>
+      <% end %>  
+    </small>
+  <% else %>
+    <small class='mr-2'>
+      <%= link_to post_likes_path(post), method: :post do %>
+        <span>&#128159;<%= post.likes.count %></span>
+      <% end %>
+    </small>
+  <% end %>
+</div>

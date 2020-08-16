@@ -1,0 +1,27 @@
+<div class='comment-links mb-3'>
+  <% if current_user == comment.user %>
+    <small class='mr-2'>
+      <%= link_to edit_comment_path(comment) do %>
+        &#128393;
+      <% end %>
+    </small>
+    <small class='mr-2'>
+      <%= link_to comment_path(comment), method: :delete do %>
+        &#10060;
+      <% end %>
+    </small>
+  <% end %>
+  <% if comment.likes.exists?(user: current_user) %>
+    <small class='mr-2 font-weight-bold'>
+      <%= link_to comment_likes_path(comment), method: :comment do %>
+        <span>&#128151;<%= comment.likes.count %></span>
+      <% end %>  
+    </small>
+  <% else %>
+    <small class='mr-2'>
+      <%= link_to comment_likes_path(comment), method: :comment do %>
+        <span>&#128159;<%= comment.likes.count %></span>
+      <% end %>
+    </small>
+  <% end %>
+</div>
